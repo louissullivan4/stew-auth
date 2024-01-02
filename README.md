@@ -3,7 +3,7 @@
 A microservice to be used as an authentication service for my future applications
 
 ## Manual Tests for Authentication Microservice
-1. Creating a New User
+### 1. Creating a New User
 * Linux/Mac:
 ```
 curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/json" -d '{"username": "newuser", "password": "password123"}'
@@ -15,7 +15,7 @@ curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/jso
 ```
 
 
-2. Attempting to Create a User That Already Exists
+### 2. Attempting to Create a User That Already Exists
 * Linux/Mac:
 ```
 curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/json" -d '{"username": "newuser", "password": "password123"}'
@@ -28,7 +28,7 @@ curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/jso
 ```
 
 
-3. Logging in as a User That Doesn't Exist
+### 3. Logging in as a User That Doesn't Exist
 * Linux/Mac:
 ```
 curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json" -d '{"username": "nonexistentuser", "password": "password123"}'
@@ -40,7 +40,7 @@ curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json
 ```
 
 
-4. Logging in a User That Exists with the Correct Password
+### 4. Logging in a User That Exists with the Correct Password
 * Linux/Mac:
 ```
 curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json" -d '{"username": "newuser", "password": "password123"}'
@@ -52,7 +52,7 @@ curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json
 
 ```
 
-5. Logging in the User with the Wrong Password
+### 5. Logging in the User with the Wrong Password
 * Linux/Mac:
 ```
 curl -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d '{"username": "newuser", "password": "wrongpassword"}'
