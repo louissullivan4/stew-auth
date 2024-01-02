@@ -11,5 +11,7 @@ describe('User Model', () => {
     expect(user.username).toBe('testUser');
     expect(user.password).toBe('password123');
   });
-  clearDatabase("User");
+  afterAll(async () => {
+    await clearDatabase();
+  });
 });
