@@ -1,0 +1,27 @@
+{
+  "name": "stew-auth",
+  "version": "1.0.0",
+  "description": "A microservice to be used as an authentication service for my future applications",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "mocha 'test/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/louissullivan4/stew-auth.git"
+  },
+  "keywords": [
+    "authentication",
+    "microservice",
+    "express",
+    "bcrypt"
+  ],
+  "author": "Louis Sullivan",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/louissullivan4/stew-auth/issues"
+  },
+  "homepage": "https://github.com/louissullivan4/stew-auth#readme"
+}
