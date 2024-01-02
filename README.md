@@ -24,7 +24,6 @@ curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/jso
 * Windows:
 ```
 curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/json" -d "{\"username\": \"newuser\", \"password\": \"password123\"}"
-
 ```
 
 
@@ -60,5 +59,5 @@ curl -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/
 
 * Windows:
 ```
-curl -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d "{\"username\": \"newuser\", \"password\": \"wrongpassword\"}"
+curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json" -d "{\"username\": \"newuser\", \"password\": \"wrongpassword\"}"
 ```
