@@ -4,8 +4,8 @@
   "description": "A microservice to be used as an authentication service for my future applications",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "test": "mocha 'test/**/*.js'"
   },
   "repository": {
@@ -23,5 +23,12 @@
   "bugs": {
     "url": "https://github.com/louissullivan4/stew-auth/issues"
   },
-  "homepage": "https://github.com/louissullivan4/stew-auth#readme"
+  "homepage": "https://github.com/louissullivan4/stew-auth#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3"
+  }
 }
