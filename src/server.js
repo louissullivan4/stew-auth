@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 const clearDatabase = require('./utils/clearDatabase');
-
+const cors = require('cors');
 
 const createApp = (clearDB = false) => {
     const app = express();
-
+    app.use(cors());
     // Connect to MongoDB
     mongoose.connect(process.env.MONGO_URI)
         .then(() => {
