@@ -71,7 +71,7 @@ curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json
 ### 5. Logging in the User with the Wrong Password
 * Linux/Mac:
 ```
-curl -X POST http://localhost:3000/api/auth/login -H "Content-Type: application/json" -d '{"username": "newuser", "password": "wrongpassword"}'
+curl -X POST http://localhost:3005/auth/login -H "Content-Type: application/json" -d '{"username": "newuser", "password": "wrongpassword"}'
 ```
 
 * Windows:
