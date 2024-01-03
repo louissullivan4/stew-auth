@@ -5,6 +5,11 @@ const User = require('../models/User');
 const signUp = async (req, res) => {
     try {
         const { username, password } = req.body;
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(401).send('User already exists');
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, password: hashedPassword });
         await newUser.save();
