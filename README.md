@@ -1,6 +1,6 @@
 # Stew Authentication Microservice
 
-A microservice to be used as an authentication service for my future applications
+A microservice to be used as an authentication service for my future applications. The repo also contains a middleware folder containing a function for verifying the JWT token. This can be implemented in every future microservice allowing it to independently verify the JWT signature to ensure it's valid and hasn't been tampered with and reducing single points of failure by having it centralised in this microservice. 
 
 ## Environment Variables Setup
 Local:
