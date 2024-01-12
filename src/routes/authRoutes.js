@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 const { escape } = require('validator');
+const rateLimit = require('express-rate-limit');
 
+const { RateLimitError } = require('../models/customErrors');
 const { signUp, login } = require('../controllers/authController');
 
 const escapeInput = (value) => {
@@ -32,7 +34,23 @@ const loginValidation = [
         .customSanitizer(escapeInput)
 ];
 
-router.post('/signup', signUpValidation, signUp);
-router.post('/login', loginValidation, login);
+const signUpLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    handler: (req, res, next) => {
+        next(new RateLimitError("Too many accounts created from this IP, please try again after 15 minutes"));
+    }
+});
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    handler: (req, res, next) => {
+        next(new RateLimitError("Too many login attempts from this IP, please try again after 15 minutes"));
+    }
+});
+
+router.post('/signup', signUpValidation, signUpLimiter, signUp);
+router.post('/login', loginValidation, loginLimiter, login);
 
 module.exports = router;

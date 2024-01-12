@@ -12,4 +12,11 @@ class ValidationError extends Error {
     }
 }
 
-module.exports = { AuthenticationError, ValidationError };
+class RateLimitError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "RateLimitError";
+    }
+}
+
+module.exports = { AuthenticationError, ValidationError, RateLimitError };

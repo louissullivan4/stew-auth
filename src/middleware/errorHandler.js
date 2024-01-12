@@ -1,4 +1,4 @@
-const { AuthenticationError, ValidationError } = require('../models/customErrors');
+const { AuthenticationError, ValidationError, RateLimitError } = require('../models/customErrors');
 const logger = require('../utils/logger');
 
 const errorHandler = (err, req, res, next) => {
@@ -12,9 +12,13 @@ const errorHandler = (err, req, res, next) => {
     } 
 
     else if (err instanceof AuthenticationError) {
-        return res.status(401).json({ message: 'Invalid input. Please try again.' });
+        return res.status(400).json({ message: 'Invalid input. Please try again.' });
     } 
 
+    else if (err instanceof RateLimitError) {
+        return res.status(429).json({ message: err.message });
+    }
+    
     else {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
