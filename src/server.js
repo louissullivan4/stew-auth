@@ -1,25 +1,29 @@
 const express = require('express');
-const mongoose = require('mongoose');
 require('dotenv').config();
-const authRoutes = require('./routes/authRoutes');
-const clearDatabase = require('./utils/clearDatabase');
+const mongoose = require('mongoose');
 const cors = require('cors');
 
-const createApp = (clearDB = false) => {
+const authRoutes = require('./routes/authRoutes');
+const clearDatabase = require('./utils/clearDatabase');
+const logger = require('./utils/logger');
+const errorHandler = require('./middleware/errorHandler');
+
+const createApp = (clearDB = true) => {
     const app = express();
     app.use(cors());
-    // Connect to MongoDB
+
     mongoose.connect(process.env.MONGO_URI)
         .then(() => {
-            console.log('MongoDB Connected');
+            logger.info('MongoDB Connected');
             if (clearDB) {
                 clearDatabase();
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => logger.error(`Database connection error: ${err.message}`));
 
     app.use(express.json());
     app.use('/auth', authRoutes);
+    app.use(errorHandler);
 
     return app;
 };
@@ -29,7 +33,7 @@ const PORT = process.env.PORT || 3005;
 if (process.env.NODE_ENV !== 'test') {
     const app = createApp();
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+        logger.info(`Server is running on port ${PORT}`);
     });
 }
 

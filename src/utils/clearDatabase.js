@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const logger = require('./logger');
 
-// Define a function to clear the database
 async function clearDatabase() {
     try {
         const models = mongoose.models;
@@ -8,9 +8,9 @@ async function clearDatabase() {
             const model = models[modelName];
             await model.deleteMany({});
         }
-        console.log('Database cleared successfully.');
+        logger.info('Database cleared successfully.');
     } catch (error) {
-        console.error('Error clearing database:', error);
+        logger.error(`Error clearing database: ${error.message}`);
     }
 }
 
