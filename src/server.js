@@ -8,7 +8,7 @@ const clearDatabase = require('./utils/clearDatabase');
 const logger = require('./utils/logger');
 const errorHandler = require('./middleware/errorHandler');
 
-const createApp = (clearDB = true) => {
+const createApp = (clearDB = process.env.CLEAR_DB) => {
     const app = express();
     app.use(cors());
 
