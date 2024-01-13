@@ -13,12 +13,12 @@ docker pull ghcr.io/louissullivan4/stewauth:1.2.0
 #### Step 2: Set Up Environment Variables in Testing Mode
 Create a .env.test file in the current directory and include the following variables:
 
-JWT_SECRET: A randomly generated JWT secret.
-PORT: The port number on which the service will run (default is 3005).
-MONGO_URI: TO YOUR TESTING DATABASE. THIS IS IMPORTANT AS IT WILL CLEAR YOUR DATABASE ON RUNNING.
-CLEAR_DB: Set to true to delete the database on startup. CAUTION!!!
-DISABLE_RATE_LIMIT: Set to true to avoid rate limiting errors. CAUTION!!!
-NODE_ENV: set to test to run npm test
+- JWT_SECRET: A randomly generated JWT secret.
+- PORT: The port number on which the service will run (default is 3005).
+- MONGO_URI: TO YOUR TESTING DATABASE. THIS IS IMPORTANT AS IT WILL CLEAR YOUR DATABASE ON RUNNING.
+- CLEAR_DB: Set to true to delete the database on startup. CAUTION!!!
+- DISABLE_RATE_LIMIT: Set to true to avoid rate limiting errors. CAUTION!!!
+- NODE_ENV: set to test to run npm test
 
 ##### Example '.env'
 ```bash
