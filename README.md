@@ -22,11 +22,11 @@ docker pull ghcr.io/louissullivan4/stewauth:1.2.0
 #### Step 2: Set Up Environment Variables
 Create a .env file in the current directory and include the following variables:
 
-JWT_SECRET: A randomly generated JWT secret.
-PORT: The port number on which the service will run (default is 3005).
-MONGO_URI: The MongoDB URI. This can be a local MongoDB instance (mongodb://localhost:27017/DbName) or a remote database.
-CLEAR_DB: Set to true to delete the database on startup. CAUTION!
-DISABLE_RATE_LIMIT: Disables rate limiting, mainly used for testing purposes.
+- JWT_SECRET: A randomly generated JWT secret.
+- PORT: The port number on which the service will run (default is 3005).
+- MONGO_URI: The MongoDB URI. This can be a local MongoDB instance (mongodb://localhost:27017/DbName) or a remote database.
+- CLEAR_DB: Set to true to delete the database on startup. CAUTION!
+- DISABLE_RATE_LIMIT: Disables rate limiting, mainly used for testing purposes.
 
 ##### Example '.env'
 ```bash
