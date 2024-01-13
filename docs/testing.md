@@ -7,7 +7,7 @@ You can both manually and automatically test the application. See below for more
 #### Step 1: Pull the Docker Image
 
 ```bash
-docker pull ghcr.io/louissullivan4/stewauth:1.1.2
+docker pull ghcr.io/louissullivan4/stewauth:1.2.0
 ```
 
 #### Step 2: Set Up Environment Variables in Testing Mode
@@ -34,7 +34,7 @@ NODE_ENV=test
 Run the Docker image with the following command, passing the .env file:
 
 ```bash
-docker run --env-file .env.test -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.1.2
+docker run --env-file .env.test -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.2.0
 ```
 
 ### Manual Testing with server running
