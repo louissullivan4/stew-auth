@@ -1,9 +1,13 @@
-FROM node:21.4.0 
+FROM node:21.4.0
 
-WORKDIR /app 
-COPY package*.json ./ 
-RUN npm install 
-COPY . . 
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
 
-EXPOSE 3005 
-CMD ["npm", "start"]
+COPY entrypoint.sh ./
+RUN chmod +x entrypoint.sh
+
+EXPOSE 3005
+
+ENTRYPOINT ["./entrypoint.sh"]

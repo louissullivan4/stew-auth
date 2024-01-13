@@ -1,26 +1,47 @@
 # Stew Authentication Microservice
 
-A microservice to be used as an authentication service for my future applications. The repo also contains a middleware folder containing a function for verifying the JWT token. This can be implemented in every future microservice allowing it to independently verify the JWT signature to ensure it's valid and hasn't been tampered with and reducing single points of failure by having it centralised in this microservice. 
+## Overview
 
-## Running Docker Deployment (for version 1.1.1, update for whatever recent version there is)
-1. Pull the docker image
-```
+The Stew Authentication Microservice is a robust, secure, and scalable solution designed to handle authentication for various applications. It employs modern security practices, including JWT (JSON Web Tokens) for maintaining session state and bcrypt for password hashing, ensuring secure and efficient authentication. This service is designed to be a starting point for secure authentication and can be extended and customized based on specific application requirements. 
+
+- See this [documentation](/docs/features.md) for more information about the features provided by the microservice.
+- See this [documentation](/docs/testing.md) for more information about the testing provided by the microservice.
+
+## Docker Deployment Guide
+
+### Version 1.1.1
+
+Please update the instructions as necessary for the latest version.
+
+#### Step 1: Pull the Docker Image
+
+```bash
 docker pull ghcr.io/louissullivan4/stewauth:1.1.1
 ```
-2. Create a .env file with the values from environment variables setup
-3. Run the docker image and pass the .env file to it variable setup below
+
+#### Step 2: Set Up Environment Variables
+Create a .env file in the current directory and include the following variables:
+
+JWT_SECRET: A randomly generated JWT secret.
+PORT: The port number on which the service will run (default is 3005).
+MONGO_URI: The MongoDB URI. This can be a local MongoDB instance (mongodb://localhost:27017/DbName) or a remote database.
+CLEAR_DB: Set to true to delete the database on startup. CAUTION!
+DISABLE_RATE_LIMIT: Disables rate limiting, mainly used for testing purposes.
+
+##### Example '.env'
+```bash
+JWT_SECRET=your_random_secret
+PORT=3005
+MONGO_URI=mongodb://localhost:27017/YourDbName
+CLEAR_DB=false
+DISABLE_RATE_LIMIT=false
 ```
-docker run --env-file .env.dev -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.1.1
+
+#### Step 3: Run the Docker Image
+Run the Docker image with the following command, passing the .env file:
+
+```bash
+docker run --env-file .env -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.1.1
 ```
 
-## Environment Variables Setup
-Create a .env file in current directory and add the following:
-* JWT_SECRET= {randomly generate a JWS secret}
-* PORT= {default 3005}
-* MONGO_URI= {mongodb://localhost:27017/DbName or a link to your mongodb hosted elsewhere}
-* CLEAR_DB={deletes database on startup if set to true}
-* DISABLE_RATE_LIMIT={disables rate limiting for login and signup mainly used for testing}
-
-
-Note that the application will fail if you try to run with a localhost db if your docker container is not running
-a mongodb instance. Consider a docker-compose or database hosted on the internet.
+Note: If using a local database, ensure that your Docker container has access to the MongoDB instance. Consider using Docker Compose for easier setup, or opt for a cloud-hosted database.
