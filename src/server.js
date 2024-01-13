@@ -1,40 +1,57 @@
 const express = require('express');
-require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const authRoutes = require('./routes/authRoutes');
-const clearDatabase = require('./utils/clearDatabase');
+const config = require('./config');
 const logger = require('./utils/logger');
+const clearDatabase = require('./utils/clearDatabase');
+const disconnectDatabase = require('./utils/disconnectDatabase');
+
+const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
-const createApp = (clearDB = process.env.CLEAR_DB) => {
+const createApp = async () => {
     const app = express();
     app.use(cors());
-
-    mongoose.connect(process.env.MONGO_URI)
-        .then(() => {
-            logger.info('MongoDB Connected');
-            if (clearDB) {
-                clearDatabase();
-            }
-        })
-        .catch(err => logger.error(`Database connection error: ${err.message}`));
-
     app.use(express.json());
+    
+    console.log(config);
+
+    try {
+        await mongoose.connect(config.mongoURI);
+        logger.info('MongoDB Connected');
+        if (config.clearDB === 'true') {
+            await clearDatabase();
+        }
+    } catch (err) {
+        logger.error(`Database connection error: ${err.message}`);
+        process.exit(1);
+    }
+
     app.use('/auth', authRoutes);
     app.use(errorHandler);
 
     return app;
 };
 
-const PORT = process.env.PORT || 3005;
+module.exports = createApp;
 
-if (process.env.NODE_ENV !== 'test') {
-    const app = createApp();
-    app.listen(PORT, () => {
-        logger.info(`Server is running on port ${PORT}`);
+if (require.main === module) {
+    const PORT = config.port;
+    logger.info(`Attempting to start server on port ${PORT}`);
+    createApp().then(app => {
+        const server = app.listen(PORT, () => {
+            logger.info(`Server is running on port ${PORT}`);
+        });
+
+        const gracefulShutdown = async () => {
+            await disconnectDatabase();
+            server.close(() => {
+                logger.info('Server shut down gracefully');
+            });
+        };
+
+        process.on('SIGINT', gracefulShutdown);
+        process.on('SIGTERM', gracefulShutdown);
     });
 }
-
-module.exports = createApp;

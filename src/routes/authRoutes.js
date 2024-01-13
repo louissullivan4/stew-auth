@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator');
 const { escape } = require('validator');
 const rateLimit = require('express-rate-limit');
+const config = require('../config');
 
 const { RateLimitError } = require('../models/customErrors');
 const { signUp, login } = require('../controllers/authController');
@@ -50,7 +51,15 @@ const loginLimiter = rateLimit({
     }
 });
 
-router.post('/signup', signUpValidation, signUpLimiter, signUp);
-router.post('/login', loginValidation, loginLimiter, login);
+const applyRateLimiter = (limiter) => {
+    if (config.disableRateLimit == 'false'){
+        return limiter;
+    } else {
+        return (req, res, next) => next();
+    }
+};
+
+router.post('/signup', signUpValidation, applyRateLimiter(signUpLimiter), signUp);
+router.post('/login', loginValidation, applyRateLimiter(loginLimiter), login);
 
 module.exports = router;
