@@ -8,12 +8,11 @@ A microservice to be used as an authentication service for my future application
 docker pull ghcr.io/louissullivan4/stewauth:1.1.0
 ```
 2. Create a .env file with the values from environment variables setup
-3. Run the docker image and pass the .env file to it
+3. Run the docker image and pass the .env file to it variable setup below
 ```
 docker run --env-file .env.dev -p 3005:3005 louissullivan4/stewauth:1.1.0
 ```
 
- variable setup below
 ## Environment Variables Setup
 Create a .env file in current directory and add the following:
 * JWT_SECRET= {randomly generate a JWS secret}
