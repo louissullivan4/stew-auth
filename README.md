@@ -12,7 +12,7 @@ The Stew Authentication Microservice is a robust, secure, and scalable solution 
 ### Version 1.2.0
 
 Please update the instructions as necessary for the latest version.
-
+### Running with mongodb already setup
 #### Step 1: Pull the Docker Image
 
 ```bash
@@ -45,3 +45,59 @@ docker run --env-file .env -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.2.0
 ```
 
 Note: If using a local database, ensure that your Docker container has access to the MongoDB instance. Consider using Docker Compose for easier setup, or opt for a cloud-hosted database.
+
+### Setup mongodb container and run containers together
+#### Step 1: Pull the Docker Images
+```bash
+docker pull ghcr.io/louissullivan4/stewauth:1.2.0
+```
+```bash
+docker pull mongo:4.4
+```
+
+#### Step 2: Create docker network for containers to communicate
+```bash
+docker network create stew-auth_default
+```
+
+#### Step 3: Run mongodb container
+```bash
+docker run --name mongodb --network stew-auth_default -d mongo:4.4
+```
+
+#### Step 4: Create a new user to access the database
+```bash
+docker exec -it mongodb mongo
+```
+```javascript
+use myDatabaseName
+```
+```javascript
+db.createUser({user: 'setUserName',pwd: 'setUserPassword',roles: [{ role: 'readWrite', db: 'myDatabaseName' }]})
+```
+
+#### Step 5: Verify that user was created
+```javascript
+db.auth('setUserName', 'setUserPassword')
+```
+
+#### Step 6: Create a .env (see above) and set the MONGO_URI
+```bash
+MONGO_URI=mongodb://setUserName:setUserPassword@mongodb:27017/myDatabaseName
+```
+
+#### Step 7: Create a .env (see above) and set the MONGO_URI
+```bash
+MONGO_URI=mongodb://setUserName:setUserPassword@mongodb:27017/myDatabaseName
+```
+
+#### Step 8: Run stew auth container with .env set to your new file and your network set to stew-auth_default
+```bash
+docker run --env-file .env --network stew-auth_default -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.2.0
+```
+
+#### Step 9: Run a manual curl to create user and to see if all is set correctly
+```bash
+curl -X POST http://localhost:3005/auth/signup -H "Content-Type: application/json" -d '{"username": "newuser@gmail.com", "password": "Password123!"}'
+```
+
