@@ -15,8 +15,6 @@ const createApp = async () => {
     app.use(cors());
     app.use(express.json());
     
-    console.log(config);
-
     try {
         await mongoose.connect(config.mongoURI);
         logger.info('MongoDB Connected');
