@@ -12,7 +12,7 @@ The Stew Authentication Microservice is a robust, secure, and scalable solution 
 ### Version 1.2.0
 
 Please update the instructions as necessary for the latest version.
-### Running with mongodb already setup
+## Running with mongodb already setup
 #### Step 1: Pull the Docker Image
 
 ```bash
@@ -46,7 +46,7 @@ docker run --env-file .env -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.2.0
 
 Note: If using a local database, ensure that your Docker container has access to the MongoDB instance. Consider using Docker Compose for easier setup, or opt for a cloud-hosted database.
 
-### Setup mongodb container and run containers together
+## Setup mongodb container and run containers together
 #### Step 1: Pull the Docker Images
 ```bash
 docker pull ghcr.io/louissullivan4/stewauth:1.2.0
