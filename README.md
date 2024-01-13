@@ -2,15 +2,15 @@
 
 A microservice to be used as an authentication service for my future applications. The repo also contains a middleware folder containing a function for verifying the JWT token. This can be implemented in every future microservice allowing it to independently verify the JWT signature to ensure it's valid and hasn't been tampered with and reducing single points of failure by having it centralised in this microservice. 
 
-## Running Docker Deployment
+## Running Docker Deployment (for version 1.1.1, update for whatever recent version there is)
 1. Pull the docker image
 ```
-docker pull ghcr.io/louissullivan4/stewauth:1.1.0
+docker pull ghcr.io/louissullivan4/stewauth:1.1.1
 ```
 2. Create a .env file with the values from environment variables setup
 3. Run the docker image and pass the .env file to it variable setup below
 ```
-docker run --env-file .env.dev -p 3005:3005 louissullivan4/stewauth:1.1.0
+docker run --env-file .env.dev -p 3005:3005 ghcr.io/louissullivan4/stewauth:1.1.1
 ```
 
 ## Environment Variables Setup
